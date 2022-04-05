@@ -16,7 +16,7 @@ body {
 
 body::before {
     content: "";
-    background: url('./images/background.jpeg') no-repeat center center fixed;
+    background: url('https://pbs.twimg.com/media/FPbwMh5UcAU9l5C?format=jpg&name=4096x4096') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -115,30 +115,6 @@ i {
 .flipped .back {
     transform: rotateY(-180deg)
 }
-
-/* Paper Z-index */
-#p1 {
-    z-index: 0;
-}
-
-#p2 {
-    z-index: -1;
-}
-
-#p3 {
-    z-index: -2;
-}
-
-#p4 {
-    z-index: -3;
-}
-
-/* Customization */
-
-/* .book-title {
-    font-size: 1.5em;
-    margin-bottom: 40px;
-} */
 
 .cover-img {
     width: 200px;

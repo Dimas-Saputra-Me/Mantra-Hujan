@@ -1,24 +1,88 @@
-// References to DOM elements
+// Import
+import { imageBookUrl, imageFanArtsUrl } from "./images.js";
+import { lyrics } from "./lyrics.js";
+import { timestamp } from "./timestamp.js";
+
+// Make lyrics paper
 const book = document.querySelector('#book');
+let mainPage = document.createElement("div")
+mainPage.className = "paper";
+mainPage.style = "z-index: 0;";
+mainPage.innerHTML = `
+    <div class="front">
+        <div id="f1" class="front-content">
+            <h1 style="font-size: 1.5em;">Mantra Hujan</h1>
+            <h1 style="font-size: 1.5em; margin-bottom: 40px;">Kobo Kanaeru</h1>
+            <img class="cover-img" src="${imageBookUrl}" alt="images">
+        </div>
+    </div>
+    <div class="back">
+        <div id="b1" class="back-content">
+            <div class="content">
+                <h1>Ini bukan Lirik</h1>
+            </div>
+        </div>
+    </div>
+`
+book.appendChild(mainPage)
 
-const paper1 = document.querySelector('#p1')
-const paper2 = document.querySelector('#p2')
-const paper3 = document.querySelector('#p3')
-const paper4 = document.querySelector('#p4')
+for(let i=1; i<=5; i++){
+let page = document.createElement('div')
+page.className = "paper";
+page.style = `z-index: ${i*-1};`
+page.innerHTML = `
+    <div class="front">
+        <div id="f${i}" class="front-content">
+            <h1>Front-Page ${i}</h1>
+        </div>
+    </div>
+    <div class="back">
+        <div id="b${i}" class="back-content">
+            <h1>Back-Page ${i}</h1>
+        </div>
+    </div>
+`
+book.appendChild(page)
+}
 
-const mantraHujan = new Audio('./Mantra-Hujan.mp3')
+
+// References to DOM elements
+const paper = document.querySelectorAll(".paper")
+
+// Add audio
+let mantraHujan = new Audio("./Mantra-Hujan.mp3")
 
 // Event listeners
 window.addEventListener("keydown", (e) => {
-    if(e.key === "ArrowLeft") { goPrevious() }
-    if(e.key === "ArrowRight") { goNext() }
-    
-    if(e.key === "ArrowUp") { mantraHujan.play() }
+    if (e.key === "Enter") {
+        //Play audio
+        mantraHujan.play()
+
+        //Auto flip book
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        (async () => {
+            for (time of timestamp) {
+                await sleep(time * 1000)
+                goNext()
+            }
+        })()
+    }
+
+    if (e.key === "ArrowRight") {
+        goNext()
+    }
+    if (e.key === "ArrowLeft") {
+        goPrevious()
+    }
 })
+
 
 // Business Logic
 let currentState = 1;
-let numOfPapers = 4;
+let numOfPapers = paper.length;
 let maxState = numOfPapers + 1;
 
 
@@ -27,7 +91,7 @@ function openBook() {
 }
 
 function closeBook(isFirstPage) {
-    if(isFirstPage) {
+    if (isFirstPage) {
         book.style.transform = "translateX(0%)";
     } else {
         book.style.transform = "translateX(100%)";
@@ -35,28 +99,16 @@ function closeBook(isFirstPage) {
 }
 
 function goNext() {
-    if(currentState < maxState) { 
-        switch(currentState) {
-            case 1:
-                openBook();
-                paper1.classList.add("flipped");
-                paper1.style.zIndex = 1;
-                break;
-            case 2:
-                paper2.classList.add("flipped");
-                paper2.style.zIndex = 2;
-                break;
-            case 3:
-                paper3.classList.add("flipped");
-                paper3.style.zIndex = 3;
-                break;
-            case 4:
-                closeBook(false);
-                paper4.classList.add("flipped");
-                paper4.style.zIndex = 4;
-                break;
-            default: 
-                throw new Error("unkown state");    
+    if (currentState < maxState) {
+        if (currentState === 1) {
+            openBook();
+        }
+
+        paper[currentState - 1].classList.add("flipped");
+        paper[currentState - 1].style.zIndex = currentState;
+
+        if (currentState === numOfPapers) {
+            closeBook(false);
         }
 
         currentState++;
@@ -64,30 +116,22 @@ function goNext() {
 }
 
 function goPrevious() {
-    if(currentState > 1) {
-        switch(currentState) {
-            case 2:
-                closeBook(true);
-                paper1.classList.remove("flipped");
-                paper1.style.zIndex = 4;
-                break;
-            case 3:
-                paper2.classList.remove("flipped");
-                paper2.style.zIndex = 3;
-                break;
-            case 4:
-                paper3.classList.remove("flipped");
-                paper3.style.zIndex = 2;
-                break;
-            case 5: 
-                openBook()
-                paper4.classList.remove("flipped");
-                paper4.style.zIndex = 1;
-                break;
+    if (currentState > 1) {
+
+        if (currentState === 2) {
+            closeBook(true)
+        }
+
+        paper[currentState - 2].classList.remove("flipped")
+        paper[currentState - 2].style.zIndex = maxState - currentState + 1;
+
+
+        if (currentState === maxState) {
+            openBook()
         }
 
         currentState--;
     }
 }
 
-// TODO: lirik, auto flip, image fanart, sinkronkan timestamp
+// TODO: design text-lyrics, add image fanart, autoplay audio (add button), synchronize timestamp
