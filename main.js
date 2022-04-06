@@ -19,32 +19,31 @@ mainPage.innerHTML = `
     <div class="back">
         <div id="b1" class="back-content">
             <div class="content">
-                <h1>Ini bukan Lirik</h1>
+                <h1>${lyrics[0]}</h1>
             </div>
         </div>
     </div>
 `
 book.appendChild(mainPage)
 
-for(let i=1; i<=5; i++){
+for(let i=1; i<=lyrics.length-1; i++){
 let page = document.createElement('div')
 page.className = "paper";
 page.style = `z-index: ${i*-1};`
 page.innerHTML = `
     <div class="front">
         <div id="f${i}" class="front-content">
-            <h1>Front-Page ${i}</h1>
+            <img class="cover-img" src="${imageFanArtsUrl[i]}" alt="images">
         </div>
     </div>
     <div class="back">
         <div id="b${i}" class="back-content">
-            <h1>Back-Page ${i}</h1>
+            <h1>${lyrics[i]}</h1>
         </div>
     </div>
 `
 book.appendChild(page)
 }
-
 
 // References to DOM elements
 const paper = document.querySelectorAll(".paper")
@@ -54,6 +53,7 @@ let mantraHujan = new Audio("./Mantra-Hujan.mp3")
 
 // Event listeners
 window.addEventListener("keydown", (e) => {
+
     if (e.key === "Enter") {
         //Play audio
         mantraHujan.play()
@@ -64,19 +64,21 @@ window.addEventListener("keydown", (e) => {
         }
 
         (async () => {
-            for (time of timestamp) {
-                await sleep(time * 1000)
+            for (let time of timestamp) {
+                await sleep(time)
                 goNext()
             }
         })()
+
+        window.start = Date.now()
     }
 
-    if (e.key === "ArrowRight") {
-        goNext()
-    }
-    if (e.key === "ArrowLeft") {
-        goPrevious()
-    }
+    // if (e.key === "ArrowRight") {
+    //     goNext()
+    // }
+    // if (e.key === "ArrowLeft") {
+    //     goPrevious()
+    // }
 })
 
 
@@ -134,4 +136,5 @@ function goPrevious() {
     }
 }
 
-// TODO: design text-lyrics, add image fanart, autoplay audio (add button), synchronize timestamp
+// TODO: design text-lyrics, click book to play, polish synchronize timestamp
+// TODO: (OPTIONAL) reset when song end
