@@ -19,7 +19,7 @@ mainPage.innerHTML = `
     <div class="back">
         <div id="b1" class="back-content">
             <div class="content">
-                <h1>${lyrics[0]}</h1>
+                <h1 class="lyrics">${lyrics[0]}</h1>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@ page.innerHTML = `
     </div>
     <div class="back">
         <div id="b${i}" class="back-content">
-            <h1>${lyrics[i]}</h1>
+            <h1 class="lyrics">${lyrics[i]}</h1>
         </div>
     </div>
 `
@@ -52,35 +52,35 @@ const paper = document.querySelectorAll(".paper")
 let mantraHujan = new Audio("./Mantra-Hujan.mp3")
 
 // Event listeners
+// (Desktop)
 window.addEventListener("keydown", (e) => {
 
     if (e.key === "Enter") {
-        //Play audio
-        mantraHujan.play()
-
-        //Auto flip book
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        (async () => {
-            for (let time of timestamp) {
-                await sleep(time)
-                goNext()
-            }
-        })()
-
-        window.start = Date.now()
+        playSong();
     }
 
-    // if (e.key === "ArrowRight") {
-    //     goNext()
-    // }
-    // if (e.key === "ArrowLeft") {
-    //     goPrevious()
-    // }
 })
+// Mobile
+let coverPage = document.getElementById("f1");
+coverPage.addEventListener("click", playSong);
+coverPage.style = "cursor: pointer;"
 
+function playSong(){
+    //Play audio
+    mantraHujan.play()
+
+    //Auto flip book
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    (async () => {
+        for (let time of timestamp) {
+            await sleep(time)
+            goNext()
+        }
+    })()
+}
 
 // Business Logic
 let currentState = 1;
@@ -136,5 +136,5 @@ function goPrevious() {
     }
 }
 
-// TODO: design text-lyrics, click book to play, polish synchronize timestamp
-// TODO: (OPTIONAL) reset when song end
+// TODO: design text-lyrics, polish synchronize timestamp
+// TODO: (OPTIONAL) reset when song end, add info popup box, another language

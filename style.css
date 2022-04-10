@@ -29,26 +29,10 @@ body::before {
     opacity: 0.5;
 }
 
-/* Button */
-button {
-    border: none;
-    background-color: transparent;
-    margin: 10px;
-    cursor: pointer;
-    transition: transform 0.5s;
-}
-
-button:focus {
-    outline: none;
-}
-
-button:hover i {
-    color: rgb(102, 102, 102);
-}
-
-i {
-    color: gray;
-    font-size: 4em;
+.lyrics {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
 }
 
 /* Book */
