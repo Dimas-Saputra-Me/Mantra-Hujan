@@ -1,7 +1,49 @@
 // Import
-import { imageBookUrl, imageFanArtsUrl } from "./images.js";
+import { imageBookUrl, imageFanArtsUrl, credits } from "./images.js";
 import { lyrics } from "./lyrics.js";
 import { timestamp } from "./timestamp.js";
+
+// Modal Infomation for user
+var modalWrap = null;
+const showModal = (title, description, yesBtnLabel, callback) => {
+    if (modalWrap !== null) {
+        modalWrap.remove();
+    }
+
+    modalWrap = document.createElement('div');
+    modalWrap.innerHTML = `
+      <div class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-light">
+              <h5 class="modal-title">${title}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>${description}</p>
+            </div>
+            <div class="modal-footer bg-light">
+              <button type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal">${yesBtnLabel}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modalWrap.querySelector('.modal-success-btn').onclick = callback;
+
+    document.body.append(modalWrap);
+
+    var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+    modal.show();
+}
+//Show modal information
+showModal(
+    "INGFO", 
+    "Silahkan klik pada buku di tengah layar atau klik tombol Play untuk mulai memutar lagu dan lirik, Tunggu... dan selamat menikmati<br>Ehe~<br><br>Background credits: @Andrillya92<br>Front-Page book photo credit: @aru_shina", 
+    "Play",
+    playSong
+)
 
 // Make lyrics paper
 const book = document.querySelector('#book');
@@ -11,8 +53,8 @@ mainPage.style = "z-index: 0;";
 mainPage.innerHTML = `
     <div class="front">
         <div id="f1" class="front-content">
-            <h1 style="font-size: 1.5em;">Mantra Hujan</h1>
-            <h1 style="font-size: 1.5em; margin-bottom: 40px;">Kobo Kanaeru</h1>
+            <h1 >Mantra Hujan</h1>
+            <h1 style="margin-bottom: 35px;">Kobo Kanaeru</h1>
             <img class="cover-img" src="${imageBookUrl}" alt="images">
         </div>
     </div>
@@ -26,23 +68,24 @@ mainPage.innerHTML = `
 `
 book.appendChild(mainPage)
 
-for(let i=1; i<=lyrics.length-1; i++){
-let page = document.createElement('div')
-page.className = "paper";
-page.style = `z-index: ${i*-1};`
-page.innerHTML = `
+for (let i = 0; i < lyrics.length - 1; i++) {
+    let page = document.createElement('div')
+    page.className = "paper";
+    page.style = `z-index: ${(i+1) * -1};`
+    page.innerHTML = `
     <div class="front">
-        <div id="f${i}" class="front-content">
+        <div id="f${i+2}" class="front-content">
             <img class="cover-img" src="${imageFanArtsUrl[i]}" alt="images">
+            <div class="author">@${credits[i]} </div>
         </div>
     </div>
     <div class="back">
-        <div id="b${i}" class="back-content">
-            <h1 class="lyrics">${lyrics[i]}</h1>
+        <div id="b${i+2}" class="back-content">
+            <h1 class="lyrics">${lyrics[i+1]}</h1>
         </div>
     </div>
 `
-book.appendChild(page)
+    book.appendChild(page)
 }
 
 // References to DOM elements
@@ -60,12 +103,12 @@ window.addEventListener("keydown", (e) => {
     }
 
 })
-// Mobile
+// Mobile Play
 let coverPage = document.getElementById("f1");
 coverPage.addEventListener("click", playSong);
 coverPage.style = "cursor: pointer;"
 
-function playSong(){
+function playSong() {
     //Play audio
     mantraHujan.play()
 
@@ -114,6 +157,19 @@ function goNext() {
         }
 
         currentState++;
+    } else {
+        //Reset buku
+        closeBook(true)
+        currentState = 1;
+        [...paper].forEach((val, idx) => {
+            val.classList.remove("flipped")
+
+            if (idx === 0) {
+                val.style.zIndex = idx;
+            } else {
+                val.style.zIndex = idx * -1;
+            }
+        })
     }
 }
 
@@ -136,5 +192,4 @@ function goPrevious() {
     }
 }
 
-// TODO: design text-lyrics, polish synchronize timestamp
-// TODO: (OPTIONAL) reset when song end, add info popup box, another language
+// TODO: Alert portrait mobile display force to landscape

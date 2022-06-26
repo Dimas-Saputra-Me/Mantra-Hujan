@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 /* General */
 
 * {
@@ -16,7 +17,7 @@ body {
 
 body::before {
     content: "";
-    background: url('https://pbs.twimg.com/media/FPbwMh5UcAU9l5C?format=jpg&name=4096x4096') no-repeat center center fixed;
+    background: url('https://pbs.twimg.com/media/FVaKHEFVUAIn6K0?format=jpg&name=large') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -27,12 +28,33 @@ body::before {
     bottom: 0px;
     left: 0px;
     opacity: 0.5;
+    filter: blur(5px);
 }
 
 .lyrics {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    max-width: 42vw;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: xx-large;
+    -webkit-text-stroke: 1px #00aff7;
+    color: #a8edff;
+    text-shadow:
+        3px 3px 0 #00aff7,
+        -1px -1px 0 #00aff7,
+        1px -1px 0 #00aff7,
+        -1px 1px 0 #00aff7,
+        1px 1px 0 #00aff7;
+    letter-spacing: 0.5px;
+}
+
+.author {
+    position: absolute;
+    bottom: 50%;
+    right: 0%;
+    transform: rotate(90deg);
+    font-size: small;
 }
 
 /* Book */
@@ -57,7 +79,7 @@ body::before {
     border-left: 3px solid rgba(85, 230, 245, 0.3);
 }
 
-.front, 
+.front,
 .back {
     position: absolute;
     width: 100%;
@@ -124,4 +146,9 @@ body::before {
     margin-bottom: 20px;
 }
 
-
+#f1 h1 {
+    font-size: 1.8em;
+    font-family: 'Poppins', sans-serif;
+    -webkit-text-stroke: 1px #00aff7;
+    color: #a8edff;
+}

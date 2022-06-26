@@ -1,4 +1,5 @@
 export const lyrics = [
+    "☔☔☔ INTRO",
     "Rapalkan mantra",
     "Kilau cahaya",
     "Sinari dunia",
@@ -9,8 +10,8 @@ export const lyrics = [
     "Enggan untuk melangkah",
     "Kubuka mata",
     "Menatap langit",
-    "Rintik hujan",
-    "Bergema genangi bentala (Haa)",
+    "Rintik hujan bergema",
+    "Genangi bentala (Haa)",
     "Seakan membisik",
     "Ayo jelajahi dunia",
     "Melamunkan berbagai angan",

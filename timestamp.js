@@ -1,5 +1,6 @@
 export const timestamp = [
-    20888,
+    2500,
+    18388,
     1251,
     1471,
     7212,
@@ -27,4 +28,5 @@ export const timestamp = [
     3158,
     5826,
     3090,
+    8000, // Waktu untuk reset buku
 ]
