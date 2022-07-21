@@ -3,6 +3,9 @@ import { imageBookUrl, imageFanArtsUrl, credits } from "./images.js";
 import { lyrics } from "./lyrics.js";
 import { timestamp } from "./timestamp.js";
 
+//Force landscape mode for mobile
+screen.orientation.lock("landscape");
+
 // Modal Infomation for user
 var modalWrap = null;
 const showModal = (title, description, yesBtnLabel, callback) => {
@@ -100,6 +103,14 @@ window.addEventListener("keydown", (e) => {
 
     if (e.key === "Enter") {
         playSong();
+    }
+
+    //DEBUG
+    if (e.key === "ArrowRight"){
+        goNext()
+    }
+    if (e.key === "ArrowLeft"){
+        goPrevious()
     }
 
 })

@@ -34,10 +34,11 @@ body::before {
 .lyrics {
     padding-left: 4vw;
     padding-right: 4vw;
+    min-width: 25vw;
     max-width: 42vw;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    font-size: xx-large;
+    font-size: 2vw;
     -webkit-text-stroke: 1px #00aff7;
     color: #a8edff;
     text-shadow:
@@ -54,13 +55,13 @@ body::before {
     bottom: 50%;
     right: 0%;
     transform: rotate(90deg);
-    font-size: small;
+    font-size: 1vw;
 }
 
 /* Book */
 .book {
-    width: 350px;
-    height: 500px;
+    width: 25vw;
+    height: 70vh;
     position: relative;
     transition: transform 0.5s;
 }
@@ -123,8 +124,8 @@ body::before {
 }
 
 .cover-img {
-    width: 200px;
-    height: 270px;
+    width: 14vw;
+    height: 17vw;
     object-fit: cover;
     border-radius: 30px;
 }
