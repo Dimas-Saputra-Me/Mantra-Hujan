@@ -31,11 +31,19 @@ body::before {
     filter: blur(5px);
 }
 
+.judul {
+    margin-bottom: 2vh;
+    font-size: 1vw;
+}
+
 .lyrics {
     padding-left: 4vw;
     padding-right: 4vw;
     min-width: 25vw;
     max-width: 42vw;
+}
+
+.custom-font-style {
     text-align: center;
     font-family: 'Poppins', sans-serif;
     font-size: 2vw;
@@ -127,7 +135,7 @@ body::before {
     width: 14vw;
     height: 17vw;
     object-fit: cover;
-    border-radius: 30px;
+    border-radius: 2vw;
 }
 
 #b1 {
@@ -153,3 +161,4 @@ body::before {
     -webkit-text-stroke: 1px #00aff7;
     color: #a8edff;
 }
+

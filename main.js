@@ -3,9 +3,6 @@ import { imageBookUrl, imageFanArtsUrl, credits } from "./images.js";
 import { lyrics } from "./lyrics.js";
 import { timestamp } from "./timestamp.js";
 
-//Force landscape mode for mobile
-screen.orientation.lock("landscape");
-
 // Modal Infomation for user
 var modalWrap = null;
 const showModal = (title, description, yesBtnLabel, callback) => {
@@ -26,7 +23,7 @@ const showModal = (title, description, yesBtnLabel, callback) => {
               <p>${description}</p>
             </div>
             <div class="modal-footer bg-light">
-              <button type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal">${yesBtnLabel}</button>
+              <button id="button" type="button" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal">${yesBtnLabel}</button>
             </div>
           </div>
         </div>
@@ -42,8 +39,8 @@ const showModal = (title, description, yesBtnLabel, callback) => {
 }
 //Show modal information
 showModal(
-    "INGFO", 
-    "Silahkan klik pada buku di tengah layar atau klik tombol Play untuk mulai memutar lagu dan lirik, Tunggu... dan selamat menikmati<br>Ehe~<br><br>Background credits: @Andrillya92<br>Front-Page book photo credit: @aru_shina", 
+    "INGFO",
+    "Silahkan klik pada buku di tengah layar atau klik tombol Play untuk mulai memutar lagu dan lirik, Tunggu... dan selamat menikmati<br>Ehe~<br><br>Background credits: @Andrillya92<br>Front-Page book photo credit: @aru_shina",
     "Play",
     playSong
 )
@@ -56,15 +53,15 @@ mainPage.style = "z-index: 0;";
 mainPage.innerHTML = `
     <div class="front">
         <div id="f1" class="front-content">
-            <h1 >Mantra Hujan</h1>
-            <h1 style="margin-bottom: 35px;">Kobo Kanaeru</h1>
+            <div class="judul custom-font-style">Mantra Hujan</div>
+            <div class="judul custom-font-style">Kobo Kanaeru</div>
             <img class="cover-img" src="${imageBookUrl}" alt="images">
         </div>
     </div>
     <div class="back">
         <div id="b1" class="back-content">
             <div class="content">
-                <h1 class="lyrics">${lyrics[0]}</h1>
+                <h1 class="lyrics custom-font-style">${lyrics[0]}</h1>
             </div>
         </div>
     </div>
@@ -74,17 +71,17 @@ book.appendChild(mainPage)
 for (let i = 0; i < lyrics.length - 1; i++) {
     let page = document.createElement('div')
     page.className = "paper";
-    page.style = `z-index: ${(i+1) * -1};`
+    page.style = `z-index: ${(i + 1) * -1};`
     page.innerHTML = `
     <div class="front">
-        <div id="f${i+2}" class="front-content">
+        <div id="f${i + 2}" class="front-content">
             <img class="cover-img" src="${imageFanArtsUrl[i]}" alt="images">
             <div class="author">@${credits[i]} </div>
         </div>
     </div>
     <div class="back">
-        <div id="b${i+2}" class="back-content">
-            <h1 class="lyrics">${lyrics[i+1]}</h1>
+        <div id="b${i + 2}" class="back-content">
+            <h1 class="lyrics custom-font-style">${lyrics[i + 1]}</h1>
         </div>
     </div>
 `
@@ -103,14 +100,6 @@ window.addEventListener("keydown", (e) => {
 
     if (e.key === "Enter") {
         playSong();
-    }
-
-    //DEBUG
-    if (e.key === "ArrowRight"){
-        goNext()
-    }
-    if (e.key === "ArrowLeft"){
-        goPrevious()
     }
 
 })
@@ -202,5 +191,3 @@ function goPrevious() {
         currentState--;
     }
 }
-
-// TODO: Alert portrait mobile display force to landscape
