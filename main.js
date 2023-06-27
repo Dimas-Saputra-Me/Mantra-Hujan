@@ -40,7 +40,7 @@ const showModal = (title, description, yesBtnLabel, callback) => {
 //Show modal information
 showModal(
     "INGFO",
-    "Silahkan klik pada buku di tengah layar atau klik tombol Play untuk mulai memutar lagu dan lirik, Tunggu... dan selamat menikmati<br>Ehe~<br><br>Background credits: @Andrillya92<br>Front-Page book photo credit: @aru_shina",
+    "Silahkan klik pada buku di tengah layar atau klik tombol Play untuk mulai memutar lagu dan lirik, Tunggu... dan selamat menikmati<br>Ehe~<br><br>Background credits: @rararamax_<br>Front-Page book photo credit: @aru_shina",
     "Play",
     playSong
 )

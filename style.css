@@ -17,7 +17,7 @@ body {
 
 body::before {
     content: "";
-    background: url('https://pbs.twimg.com/media/FVaKHEFVUAIn6K0?format=jpg&name=large') no-repeat center center fixed;
+    background: url('https://pbs.twimg.com/media/FtQZBRsaMAAhUvl?format=jpg&name=small') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
